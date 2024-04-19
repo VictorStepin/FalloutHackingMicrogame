@@ -4,20 +4,33 @@ def create_words():
     words = ["Tom", "Pot", "Rot"]
     return words
 
-def choose_word_to_guess(words):
+def choose_secret_word(words):
     random_index = randrange(0, len(words))
     wordToGuess = words[random_index]
     return wordToGuess
 
-def print_list(list):
-    i = 0
-    while i < len(list):
-        print(list[i])
-        i += 1
-
 print("Welcome to Fallout Hacking Microgame")
 
 words = create_words()
-guess_word = choose_word_to_guess(words)
-print_list(words)
-print(guess_word)
+secret_word = choose_secret_word(words)
+print(words)
+
+win = False
+attempts_count = 4
+attempt = 0
+while attempt < attempts_count:
+    print("Attempts left: " + str(attempts_count - attempt))
+    attempt += 1
+    guess = input("Enter a word: ")
+    if guess == secret_word:
+        win = True
+        break
+    else:
+        if attempt != attempts_count:
+            print("Wrong, try again")
+    print()
+
+if win:
+    print("You win!")
+else:
+    print("You lose.")
