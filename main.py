@@ -16,18 +16,22 @@ def choose_secret_word(words):
     word_to_guess = words[random_index]
     return word_to_guess
 
+def count_matches(secret_word, word_to_compare):
+    matches = sum(a == b for a, b in zip(secret_word, word_to_compare))
+    return matches
+
 print("Welcome to Fallout Hacking Microgame")
 
 words = create_words()
 secret_word = choose_secret_word(words)
 print(words)
-print(secret_word)
+#print(secret_word)
 
 win = False
 attempts_count = 4
 attempt = 0
 while attempt < attempts_count:
-    print("Attempts left: " + str(attempts_count - attempt))
+    print(f"Attempts left: {attempts_count - attempt}")
     attempt += 1
     guess = input("Enter a word: ")
     if guess == secret_word:
@@ -35,7 +39,8 @@ while attempt < attempts_count:
         break
     else:
         if attempt != attempts_count:
-            print("Wrong, try again")
+            matches = count_matches(secret_word, guess)
+            print(f"{matches}/{len(secret_word)} matched.")
     print()
 
 if win:
